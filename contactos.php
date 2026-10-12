@@ -4,12 +4,10 @@ require __DIR__ . '/inc/layout.php';
 /* ---- Tratamento do formulário (validação + anti-spam) ---- */
 $erros = []; $enviado = false; $v = ['nome' => '', 'email' => '', 'assunto' => '', 'msg' => ''];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    start_session();
     foreach ($v as $k => $_) $v[$k] = trim((string)($_POST[$k] ?? ''));
-    if (!csrf_ok($_POST['csrf'] ?? null)) $erros[] = 'Sessão expirada. Recarrega a página e tenta de novo.';
+    if (!csrf_ok($_POST['csrf'] ?? null)) $erros[] = 'O formulário expirou ou foi enviado depressa demais. Recarrega a página e tenta de novo.';
     if (($_POST['website'] ?? '') !== '') $erros[] = 'Pedido inválido.';                      // honeypot
-    if (time() - (int)($_SESSION['t0'] ?? 0) < 3) $erros[] = 'Demasiado rápido. Tenta de novo.';  // anti-bot
-    if (($_SESSION['ultimo'] ?? 0) > time() - 30) $erros[] = 'Aguarda uns segundos antes de enviar outra mensagem.';
+    if (isset($_COOKIE['ig_ultimo']) && (int)$_COOKIE['ig_ultimo'] > time() - 30) $erros[] = 'Aguarda uns segundos antes de enviar outra mensagem.';
     if (mb_strlen($v['nome']) < 2 || mb_strlen($v['nome']) > 80) $erros[] = 'Indica o teu nome.';
     if (!filter_var($v['email'], FILTER_VALIDATE_EMAIL) || preg_match('/[\r\n]/', $v['email'])) $erros[] = 'Indica um email válido.';
     if (mb_strlen($v['msg']) < 10 || mb_strlen($v['msg']) > 2000) $erros[] = 'A mensagem deve ter entre 10 e 2000 caracteres.';
@@ -17,15 +15,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$erros) {
         $assunto = preg_replace('/[\r\n]+/', ' ', mb_substr($v['assunto'] ?: 'Contacto pelo site', 0, 100));
         $corpo = "Nome: {$v['nome']}\nEmail: {$v['email']}\n\n{$v['msg']}";
-        $to = cfg('form_mail_to');
+        $ok = false; $to = cfg('form_mail_to');
         if ($to) {
-            @mail($to, '[Site IG] ' . $assunto, $corpo, "From: no-reply@" . ($_SERVER['SERVER_NAME'] ?? 'localhost') . "\r\nReply-To: {$v['email']}\r\nContent-Type: text/plain; charset=UTF-8");
-        } else {   // sem email configurado: guarda localmente (pasta protegida)
-            file_put_contents(__DIR__ . '/storage/mensagens.jsonl', json_encode(['data' => date('c'), 'assunto' => $assunto] + $v, JSON_UNESCAPED_UNICODE) . "\n", FILE_APPEND | LOCK_EX);
+            $ok = @mail($to, '=?UTF-8?B?' . base64_encode('[Site IG] ' . $assunto) . '?=', $corpo, "From: no-reply@" . preg_replace('/[^a-z0-9.-]/i', '', $_SERVER['SERVER_NAME'] ?? 'localhost') . "\r\nReply-To: {$v['email']}\r\nContent-Type: text/plain; charset=UTF-8");
         }
-        $_SESSION['ultimo'] = time(); $enviado = true; $v = array_map(fn() => '', $v);
+        if (!$ok) {   // sem email a funcionar: tenta guardar localmente (pasta protegida)
+            $ok = @file_put_contents(__DIR__ . '/storage/mensagens.jsonl', json_encode(['data' => date('c'), 'assunto' => $assunto] + $v, JSON_UNESCAPED_UNICODE) . "\n", FILE_APPEND | LOCK_EX) !== false;
+        }
+        if ($ok) { setcookie('ig_ultimo', (string)time(), ['expires' => time() + 60, 'path' => '/', 'httponly' => true, 'samesite' => 'Lax']); $enviado = true; $v = array_map(fn() => '', $v); }
+        else $erros[] = 'Não foi possível enviar a mensagem agora. Contacta a secretaria por telefone ou email.';
     }
-} else { start_session(); $_SESSION['t0'] = time(); }
+}
 
 page_start(['title' => 'Contactos', 'desc' => 'Morada, telefone, email e mapa do Agrupamento de Escolas da Cidadela, em Cascais.']);
 page_hero('Contactos', 'Fala connosco');
