@@ -2,7 +2,7 @@
 /**
  * CONFIGURAÇÃO DO SITE
  * Aqui mudas contactos, links e textos globais. Tudo o que está como
- * [PREENCHER: ...] é informação que ainda falta confirmar com a escola.
+ * [PREENCHER: ...] marca informação que ainda falta preencher.
  */
 return [
     'nome_curso'   => 'Técnico de Informática de Gestão',
@@ -11,7 +11,7 @@ return [
     'escola_sede'  => 'E.S. Cidadela',
     'ano_letivo'   => '2026/2027',
     'inicio_curso' => '2022/23',
-    'slogan'       => '[PREENCHER: slogan do curso]',
+    'slogan'       => 'Conecte-se e divirta-se',
 
     // URL final do site, sem barra no fim (usado em sitemap e SEO). Ex.: https://www.exemplo.pt
     'base_url'     => '',
@@ -40,5 +40,5 @@ return [
     'eqavet_url'       => 'https://aecidadela.pt/eqavet/',
 
     // Email que recebe o formulário de contactos. Vazio = guarda em storage/mensagens.jsonl
-    'form_mail_to' => '',
+    'form_mail_to' => 'david.cruz@aecidadela.pt',
 ];
