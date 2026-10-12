@@ -11,21 +11,22 @@ function ph(string $s): string {
     return preg_match('/\[PREENCHER/', $s) ? '<mark class="ph">' . e($s) . '</mark>' : e($s);
 }
 
-function start_session(): void {
-    if (session_status() === PHP_SESSION_NONE) {
-        session_set_cookie_params(['httponly' => true, 'samesite' => 'Lax', 'secure' => !empty($_SERVER['HTTPS'])]);
-        session_start();
-    }
-}
+/** Segredo para assinar tokens. Em produção define a variável de ambiente SITE_SECRET. */
+function site_secret(): string { return getenv('SITE_SECRET') ?: hash('sha256', __DIR__ . php_uname('n') . 'ig-cidadela'); }
 
+/** Token anti-CSRF assinado e com hora (não precisa de sessão). */
 function csrf_token(): string {
-    start_session();
-    return $_SESSION['csrf'] ??= bin2hex(random_bytes(32));
+    $t = (string)time();
+    return $t . '.' . hash_hmac('sha256', $t, site_secret());
 }
 
-function csrf_ok(?string $t): bool {
-    start_session();
-    return is_string($t) && isset($_SESSION['csrf']) && hash_equals($_SESSION['csrf'], $t);
+/** Valida o token; devolve false se inválido, expirado (>2 h) ou enviado em menos de 3 s. */
+function csrf_ok(?string $tok): bool {
+    if (!is_string($tok) || substr_count($tok, '.') !== 1) return false;
+    [$t, $sig] = explode('.', $tok);
+    if (!ctype_digit($t) || !hash_equals(hash_hmac('sha256', $t, site_secret()), $sig)) return false;
+    $idade = time() - (int)$t;
+    return $idade >= 3 && $idade <= 7200;
 }
 
 /** Total de horas de um conjunto de disciplinas por ano. */
