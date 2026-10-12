@@ -1,0 +1,15 @@
+# Apache (alojamento partilhado / cPanel)
+Options -Indexes
+ErrorDocument 404 /404.php
+RewriteEngine On
+RewriteRule ^sitemap\.xml$ sitemap.php [L]
+RewriteRule ^robots\.txt$ robots.php [L]
+# Bloquear pastas e ficheiros internos
+RewriteRule ^(inc|data|storage)/ - [F,L]
+RewriteRule ^(README\.md|\.git) - [F,L]
+<IfModule mod_headers.c>
+  Header always set X-Frame-Options "SAMEORIGIN"
+  <FilesMatch "\.(css|js|svg|png|jpg|webp)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+</IfModule>
