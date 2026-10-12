@@ -35,7 +35,7 @@ $mapa = 'https://www.openstreetmap.org/search?query=' . rawurlencode(cfg('morada
   <div class="wrap grid-2">
     <div>
       <h2>Onde estamos</h2>
-      <address style="font-style:normal">
+      <address>
         <strong><?= e(cfg('escola_sede')) ?> – <?= e(cfg('escola')) ?></strong><br>
         <?= e(cfg('morada')) ?><br><?= e(cfg('codigo_postal')) ?><br>
         Tel. <a href="tel:<?= e(cfg('telefone_href')) ?>"><?= e(cfg('telefone')) ?></a><br>
@@ -57,7 +57,7 @@ $mapa = 'https://www.openstreetmap.org/search?query=' . rawurlencode(cfg('morada
         <div><label for="email">Email</label><input id="email" name="email" type="email" required maxlength="120" autocomplete="email" value="<?= e($v['email']) ?>"></div>
         <div><label for="assunto">Assunto</label><input id="assunto" name="assunto" type="text" maxlength="100" value="<?= e($v['assunto']) ?>"></div>
         <div><label for="msg">Mensagem</label><textarea id="msg" name="msg" rows="6" required maxlength="2000"><?= e($v['msg']) ?></textarea></div>
-        <div><label style="font-weight:400"><input type="checkbox" name="rgpd" value="1"> Aceito que os meus dados sejam usados apenas para responder a este pedido (ver <a href="privacidade.php">Privacidade</a>).</label></div>
+        <div><label class="check"><input type="checkbox" name="rgpd" value="1"> Aceito que os meus dados sejam usados apenas para responder a este pedido (ver <a href="privacidade.php">Privacidade</a>).</label></div>
         <button class="btn" type="submit">Enviar mensagem</button>
       </form>
     </div>

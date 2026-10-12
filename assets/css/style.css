@@ -2,6 +2,11 @@
    ESTILOS — Informática de Gestão
    Para mudar o aspeto, edita só as variáveis (design tokens) abaixo.
    ========================================================== */
+/* Fontes alojadas localmente (licença OFL, sem pedidos a serviços externos) */
+@font-face { font-family:"Space Grotesk"; src:url("../fonts/space-grotesk-latin-wght-normal.woff2") format("woff2"); font-weight:300 700; font-display:swap; }
+@font-face { font-family:"Inter"; src:url("../fonts/inter-latin-wght-normal.woff2") format("woff2"); font-weight:100 900; font-display:swap; }
+@font-face { font-family:"JetBrains Mono"; src:url("../fonts/jetbrains-mono-latin-wght-normal.woff2") format("woff2"); font-weight:100 800; font-display:swap; }
+
 :root {
   /* Cores (modo claro) */
   --navy-900: #0a1a33;
@@ -146,3 +151,11 @@ input[type=text],input[type=email],input[type=tel],textarea,select { width:100%;
   .sub { position:static; display:flex !important; box-shadow:none; border:0; padding-left:1rem; }
   .search input { width:100%; }
 }
+
+/* Utilitários (substituem estilos inline, bloqueados pela política de segurança) */
+address { font-style:normal; }
+.faq-search { max-width:420px; margin-bottom:1rem; }
+label.check { font-weight:400; }
+.mt { margin-top:2rem; }
+.mod-year { padding:0 1.1rem; }
+[hidden] { display:none !important; }

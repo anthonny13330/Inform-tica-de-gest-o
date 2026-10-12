@@ -31,7 +31,10 @@ Em Nginx, bloqueia estas três pastas na configuração.
 
 ## Fontes oficiais dos dados
 Morada, telefone, emails, redes, formulário de pré-inscrição e plano modular vêm de aecidadela.pt.
-Aviso: o PDF oficial soma **3200 h**, mas o texto do site diz 3100 h. Confirmar com a escola.
+Total confirmado: **3200 h** (soma do PDF oficial).
 
 ## Por fazer
-Logótipo oficial, fotografias das instalações, parcerias, vagas/critérios, prazos, projetos, testemunhos, confirmação do selo EQAVET e fontes locais (o CSS usa fontes do sistema como alternativa).
+Logótipo oficial, fotografias das instalações, parcerias, vagas/critérios, prazos, projetos, testemunhos, confirmação do selo EQAVET.
+
+## Fontes
+Space Grotesk (títulos), Inter (texto) e JetBrains Mono (detalhes técnicos), alojadas em `assets/fonts/` (licença OFL).

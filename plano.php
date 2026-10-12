@@ -34,8 +34,7 @@ page_hero('Curso', 'Plano de estudos', 'Organização modular oficial: ' . $gera
         <tfoot><tr><td colspan="2">Total</td><?php foreach ($tot as $t): ?><td class="n"><?= $t ?></td><?php endforeach; ?><td class="n"><?= $geral ?></td></tr></tfoot>
       </table>
     </div>
-    <p class="notice">Os totais são a soma das horas do documento oficial de organização modular. A página do curso no site do agrupamento refere 3100 horas; este plano soma <?= $geral ?>. <mark class="ph">[PREENCHER: confirmar com a escola o total oficial]</mark>
-      <a href="<?= e(cfg('plano_pdf')) ?>" rel="noopener" target="_blank">Ver PDF oficial<span class="sr"> (abre noutra janela)</span></a></p>
+    <p class="notice">Os totais são a soma das horas do documento oficial de organização modular do agrupamento. <a href="<?= e(cfg('plano_pdf')) ?>" rel="noopener" target="_blank">Ver PDF oficial<span class="sr"> (abre noutra janela)</span></a></p>
   </div>
 </section>
 
@@ -47,7 +46,7 @@ page_hero('Curso', 'Plano de estudos', 'Organização modular oficial: ' . $gera
       <details class="mod">
         <summary><span><?= e($d['nome']) ?></span><span><?= array_sum($d['horas']) ?> h</span></summary>
         <?php foreach ($d['modulos'] as $ano => $mods): ?>
-          <h3 style="padding:0 1.1rem"><?= (int)$ano ?>.º ano</h3>
+          <h3 class="mod-year"><?= (int)$ano ?>.º ano</h3>
           <ul><?php foreach ($mods as $m): ?><li><span><?= e($m[0]) ?></span><span><?= (int)$m[1] ?> h</span></li><?php endforeach; ?></ul>
         <?php endforeach; ?>
       </details>

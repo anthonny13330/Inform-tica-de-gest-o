@@ -31,6 +31,8 @@ function page_start(array $m): void {
   <meta name="theme-color" content="#0a1a33">
   <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
   <script src="assets/js/theme.js"></script>
+  <link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/space-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>

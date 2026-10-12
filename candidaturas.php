@@ -31,7 +31,7 @@ $faq = [
   <div class="wrap">
     <h2>Perguntas frequentes</h2>
     <label for="faq-q">Pesquisar nas perguntas</label>
-    <input id="faq-q" type="search" placeholder="Ex.: vagas, horário, estágio" style="max-width:420px;margin-bottom:1rem">
+    <input id="faq-q" type="search" placeholder="Ex.: vagas, horário, estágio" class="faq-search">
     <div class="faq">
       <?php foreach ($faq as $f): ?><details><summary><?= e($f[0]) ?></summary><p><?= ph($f[1]) ?></p></details><?php endforeach; ?>
     </div>
