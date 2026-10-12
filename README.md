@@ -34,7 +34,7 @@ Morada, telefone, emails, redes, formulário de pré-inscrição e plano modular
 Total confirmado: **3200 h** (soma do PDF oficial).
 
 ## Por fazer
-Logótipo oficial, fotografias das instalações, parcerias, vagas/critérios, prazos, projetos, testemunhos, confirmação do selo EQAVET.
+Logótipo oficial, fotografias e lista das instalações, parcerias e entidades de FCT, destinos dos alunos formados e mobilidades Erasmus, projetos e testemunhos, documentos de candidatura, horário da secretaria, código ANQEP, domínio (`base_url`) e contacto de proteção de dados. Procura `PREENCHER` nos ficheiros.
 
 ## Fontes
 Space Grotesk (títulos), Inter (texto) e JetBrains Mono (detalhes técnicos), alojadas em `assets/fonts/` (licença OFL).

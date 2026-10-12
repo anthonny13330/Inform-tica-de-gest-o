@@ -20,7 +20,7 @@ page_hero('Curso', cfg('nome_longo'), 'Formação de nível secundário com dupl
         <li>Certificado Profissional Nível 4</li>
         <li>Regime diurno</li>
         <li>Em funcionamento desde <?= e(cfg('inicio_curso')) ?></li>
-        <li>Vagas: <mark class="ph">[PREENCHER: vagas]</mark></li>
+        <li>Vagas: sem limite definido; as candidaturas ficam abertas até a direção as encerrar</li>
       </ul>
       <a class="btn" href="plano.php">Ver plano de estudos</a>
     </aside>
